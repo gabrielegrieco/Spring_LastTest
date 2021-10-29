@@ -22,6 +22,8 @@ public class CinemaDto implements Dto {
 
     private String id;
 
+    private String cancellato;
+
     @JsonIgnore
     List<SalaDto> saleCinematografiche;
 
@@ -30,6 +32,7 @@ public class CinemaDto implements Dto {
     public Cinema toModel() {
         return Cinema.builder()
                 .id(UT.toLong(id))
+                .cancellato(Boolean.valueOf(cancellato))
                 .build();
     }
 }

@@ -1,9 +1,12 @@
 package it.euris.academy.aca_esame.data.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.euris.academy.aca_esame.data.archetype.Dto;
+import it.euris.academy.aca_esame.data.archetype.Model;
+import it.euris.academy.aca_esame.data.model.Cinema;
+import it.euris.academy.aca_esame.data.model.Sala;
+import it.euris.academy.aca_esame.utils.UT;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -11,45 +14,32 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "sala")
-@SQLDelete(sql = "UPDATE sala SET deleted = true WHERE id=? ")
-@Where(clause = "deleted = false")
-@Entity
 
-public class SalaDto {
+public class SalaDto implements Dto {
 
-    // proprietà
+    private String id;
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String postiASedere;
 
-    // una sala può avere molti posti a sedere;
-    @Column(name = "posti")
-    Long postiASedere;
+    private String cinemaId;
 
-    @OneToMany(mappedBy="sala", fetch=FetchType.EAGER)
-    List<ProiezioneDto> proiezioni;
+    private String cancellato;
 
-    //@ManyToOne
-    //@JoinColumn(name = "cinema_id", nullable = false)
-    CinemaDto cinema;
+    @JsonIgnore
+    private List<ProiezioneDto> proiezioni;
 
-    // metodi calcolo e controllo
 
-    public Boolean controlloPostiDisponibili(){
-        return Boolean.TRUE;
-    };
-
-    public Boolean salaVuota(){
-        return null;
-    };
-
-    public Double CalcolaIncassoSala(){
-        return null;
-    };
+    @Override
+    public Sala toModel() {
+        return Sala.builder()
+                .id(UT.toLong(id))
+                .postiASedere(UT.toLong(postiASedere))
+                .cancellato(Boolean.valueOf(cancellato))
+                .cinema(new Cinema(cinemaId))
+                .build();
+    }
 }

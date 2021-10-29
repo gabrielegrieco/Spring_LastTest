@@ -21,17 +21,17 @@ public class BigliettoDto implements Dto {
 
     private String prezzo;
 
-    private String deleted;
+    private String cancellato;
 
     @JsonIgnore
-    private List<SpettatoreDto> acquirente;
+    private List<SpettatoreDto> acquirenti;
 
 
     @Override
     public Biglietto toModel() {
         return Biglietto.builder()
                 .id(UT.toLong(id))
-                .deleted(Boolean.valueOf(deleted))
+                .cancellato(Boolean.valueOf(cancellato))
                 .prezzo(Double.valueOf(prezzo))
                 .postoAssegnato(postoAssegnato)
                 .build();

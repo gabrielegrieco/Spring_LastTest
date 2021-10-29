@@ -35,6 +35,10 @@ public class Spettatore implements Model {
     @Column(name = "nascita")
     private Instant nascita;
 
+    @Column(name="deleted")
+    @Builder.Default
+    private Boolean cancellato = false;
+
     @ManyToOne
     @JoinColumn(name = "biglietto_id", nullable = false)
     private Biglietto biglietto;
@@ -59,7 +63,9 @@ public class Spettatore implements Model {
     public SpettatoreDto toDto() {
         return SpettatoreDto.builder()
                 .id(id.toString())
-
+                .nome(nome)
+                .bigliettoId(biglietto.getId().toString())
+                .nascita(UT.fromInstant(nascita))
                 .build();
     }
 }

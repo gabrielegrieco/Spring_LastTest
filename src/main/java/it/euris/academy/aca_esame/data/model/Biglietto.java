@@ -39,7 +39,7 @@ public class Biglietto implements Model {
 
     @Column(name="cancellato")
     @Builder.Default
-    private Boolean deleted = false;
+    private Boolean cancellato = false;
 
     @OneToMany(mappedBy = "biglietto", fetch = FetchType.EAGER)
     private List<Spettatore> acquirenti;
@@ -52,6 +52,7 @@ public class Biglietto implements Model {
     }
     
     // metodo per calcolo dello biglietto
+
     public Double Sconto(){
         // interfaccia per stabilire se lo spettatore è anziano ed eventualmente come calcolare lo biglietto;
         return null;
@@ -60,11 +61,17 @@ public class Biglietto implements Model {
     @Override
     public BigliettoDto toDto() {
 
+        List<SpettatoreDto> acquirentiDto = new ArrayList<>();
+        if(acquirenti != null){
+            acquirentiDto = acquirenti.stream().map(Spettatore::toDto).collect(Collectors.toList());
+        }
+
         return BigliettoDto.builder()
                 .id(id.toString())
-                .deleted(deleted.toString())
+                .cancellato(cancellato.toString())
                 .postoAssegnato(postoAssegnato)
                 .prezzo(prezzo.toString())
+                .acquirenti(acquirentiDto)
                 .build();
     }
 }

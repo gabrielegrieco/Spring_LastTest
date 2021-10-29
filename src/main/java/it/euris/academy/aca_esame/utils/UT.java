@@ -1,5 +1,7 @@
 package it.euris.academy.aca_esame.utils;
 
+import it.euris.academy.aca_esame.data.enums.Genere;
+
 import java.time.Instant;
 
 public class UT {
@@ -17,6 +19,22 @@ public class UT {
 
     public static String fromInstant(Instant value) {
         return value == null ? null : value.toString();
+    }
+
+    public static String getGenere(Genere value) {
+        return value == null ? null : value.name();
+    }
+
+    public static Genere getGenere(String value) {
+        if (value == null) {
+            return null;
+        }
+        for (Genere genere : Genere.values()) {
+            if (genere.name().equals(value)) {
+                return genere;
+            }
+        }
+        return null;
     }
 
 }

@@ -17,13 +17,9 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@Table(name = "spettore")
-@SQLDelete(sql = "UPDATE spettore SET deleted = true WHERE id=? ")
-@Where(clause = "deleted = false")
-@Entity
 public class SpettatoreDto implements Dto {
 
     private String id;
@@ -34,6 +30,8 @@ public class SpettatoreDto implements Dto {
 
     private String bigliettoId;
 
+    public String cancellato;
+
     @Override
     public Spettatore toModel() {
         return Spettatore.builder()
@@ -41,6 +39,7 @@ public class SpettatoreDto implements Dto {
                 .nome(nome)
                 .nascita(UT.toInstant(nascita))
                 .biglietto(new Biglietto(bigliettoId))
+                .cancellato(Boolean.valueOf(cancellato))
                 .build();
     }
 }
