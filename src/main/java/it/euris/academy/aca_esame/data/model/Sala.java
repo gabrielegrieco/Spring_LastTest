@@ -51,19 +51,12 @@ public class Sala implements Model {
     @JoinColumn(name = "cinema_id", nullable = false)
     private Cinema cinema;
 
-    // metodi calcolo e controllo
+    @OneToMany(mappedBy="sala", fetch=FetchType.EAGER)
+    List<Spettatore> spettatori;
 
-    public Boolean controlloPostiDisponibili(){
-        return Boolean.TRUE;
-    };
-
-    public Boolean salaVuota(){
-        return null;
-    };
-
-    public Double CalcolaIncassoSala(){
-        return null;
-    };
+    public Sala(String salaId) {
+        this.id = Long.valueOf(salaId);
+    }
 
     @Override
     public SalaDto toDto() {

@@ -32,6 +32,9 @@ public class SalaDto implements Dto {
     @JsonIgnore
     private List<ProiezioneDto> proiezioni;
 
+    @JsonIgnore
+    List<SpettatoreDto> spettatori;
+
 
     @Override
     public Sala toModel() {

@@ -18,7 +18,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "spettore")
+@Table(name = "spettatore")
 @SQLDelete(sql = "UPDATE spettore SET deleted = true WHERE id=? ")
 @Where(clause = "deleted = false")
 @Entity
@@ -48,6 +48,10 @@ public class Spettatore implements Model {
             this.id = UT.toLong(spettatoreId);
         }
     }
+
+    @ManyToOne
+    @JoinColumn(name = "sala_id", nullable = false)
+    private Sala sala;
 
     // metodi controllo e calcolo età;
 

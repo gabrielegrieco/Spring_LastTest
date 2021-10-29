@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.euris.academy.aca_esame.data.archetype.Dto;
 import it.euris.academy.aca_esame.data.archetype.Model;
 import it.euris.academy.aca_esame.data.model.Biglietto;
+import it.euris.academy.aca_esame.data.model.Sala;
 import it.euris.academy.aca_esame.data.model.Spettatore;
 import it.euris.academy.aca_esame.utils.UT;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,8 @@ public class SpettatoreDto implements Dto {
 
     private String bigliettoId;
 
+    private String salaId;
+
     public String cancellato;
 
     @Override
@@ -40,6 +43,7 @@ public class SpettatoreDto implements Dto {
                 .nascita(UT.toInstant(nascita))
                 .biglietto(new Biglietto(bigliettoId))
                 .cancellato(Boolean.valueOf(cancellato))
+                .sala(new Sala(salaId))
                 .build();
     }
 }
