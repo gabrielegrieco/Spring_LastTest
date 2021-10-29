@@ -30,7 +30,7 @@ public interface ProiezioneRepository extends JpaRepository<Proiezione, Long> {
 
     public List<SvuotaSala> getSvuotaSala(@Param("id") Long id);
 
-    @Query(value = "SELECT COUNT (aca_esame.biglietto.prezzo) FROM aca_esame.biglietto b
+    @Query(value = "SELECT SUM (aca_esame.biglietto.prezzo) FROM aca_esame.biglietto b
         JOIN aca_esame.spettatore s ON b.id = s.biglietto_id
         JOIN aca_esame.proiezione_sala p_s ON s.sala_id = p_s.s_id
         WHERE p_s.s_id = '1'", nativeQuery = true", nativeQuery = true)
